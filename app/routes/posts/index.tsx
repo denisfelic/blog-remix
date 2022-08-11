@@ -1,7 +1,7 @@
 
 import type { LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { Link, useLoaderData } from '@remix-run/react';
 import { getPosts } from '~/models/posts.server';
 
 
@@ -18,16 +18,19 @@ export default function Index() {
   const { posts } = useLoaderData() as LoaderData;
   return (
     <main>
+      <div>
+        <Link to='admin'>Admin</Link>
+      </div>
       <div>Posts Route</div>
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
-            <article>
+            <Link to={`/posts/${post.slug}`}>
               <h2>{post.title}</h2>
-            </article>
+            </Link>
           </li>
         ))}
       </ul>
     </main>
-  )
+  );
 }
